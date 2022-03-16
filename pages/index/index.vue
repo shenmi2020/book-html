@@ -48,26 +48,7 @@ export default {
         method: 'POST'
       })
       console.log('demo2:', res)
-    },
-    // 登录
-    // login() {
-    //   uni.login({
-    //     provider: 'weixin',
-    //     success: async function (loginRes) {
-    //       console.log('login', loginRes)
-    //       let info = await myRequest({
-    //         url: '/user/login',
-    //         method: 'POST',
-    //         data: {
-    //           code: loginRes.code
-    //         }
-    //       })
-    //       uni.setStorage({key: 'access_token', data: info.data.access_token})
-    //       console.log('upload12:', info)
-    //     }
-    //   })
-    // }
-    
+    },    
   },
 };
 </script>
