@@ -2,7 +2,7 @@
   <view class="content">
     <!-- 假设我需要状态栏到文字内容部分还有50px的距离 -->
     <view class="status_bar" :style="{ height: topHeight + 'px' }">
-      <text class="book">默认测试</text>
+      <text class="book">默认测试1</text>
     </view>
     <view class="record">
       <view class="month">3 月·支出1222333</view>
@@ -28,24 +28,12 @@ export default {
     return {
       topHeight: 56,
       title: "Hello",
-    };
+    }
   },
   
   onLoad() {
-    uni.login({
-      provider: 'weixin',
-      success: async function (loginRes) {
-        console.log('login', loginRes)
-        let info = await myRequest({
-          url: '/user/login',
-          method: 'POST',
-          data: {
-            code: loginRes.code
-          }
-        })
-        console.log('upload12:', info)
-      }
-    })
+    // 请求
+    this.first()    
     // #ifdef MP-WEIXIN
     let menuButtonInfo = uni.getMenuButtonBoundingClientRect()
     this.topHeight = menuButtonInfo.top + menuButtonInfo.height + 10
@@ -53,6 +41,32 @@ export default {
   },
   
   methods: {
+    // 初始请求
+    async first() {
+      let res = await myRequest({
+        url: '/user/demo2',
+        method: 'POST'
+      })
+      console.log('demo2:', res)
+    },
+    // 登录
+    // login() {
+    //   uni.login({
+    //     provider: 'weixin',
+    //     success: async function (loginRes) {
+    //       console.log('login', loginRes)
+    //       let info = await myRequest({
+    //         url: '/user/login',
+    //         method: 'POST',
+    //         data: {
+    //           code: loginRes.code
+    //         }
+    //       })
+    //       uni.setStorage({key: 'access_token', data: info.data.access_token})
+    //       console.log('upload12:', info)
+    //     }
+    //   })
+    // }
     
   },
 };
