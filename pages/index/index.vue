@@ -33,7 +33,7 @@ export default {
   
   onLoad() {
     // 请求
-    this.first()    
+    this.first()
     // #ifdef MP-WEIXIN
     let menuButtonInfo = uni.getMenuButtonBoundingClientRect()
     this.topHeight = menuButtonInfo.top + menuButtonInfo.height + 10
