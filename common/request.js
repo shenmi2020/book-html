@@ -51,7 +51,10 @@ function getLoginToken() {
             code: loginRes.code
           }
         })
-        uni.setStorage({key: 'access_token', data: info.data.access_token})
+        uni.setStorageSync('access_token', info.data.access_token)
+        if (info.data.aid) {
+          uni.setStorageSync('aid', info.data.aid)
+        }
         resolve(info)
       }
     })

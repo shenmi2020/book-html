@@ -31,12 +31,14 @@ export default {
       list: {},
       contro: false,
       pageIndex: 1,
+      aid: uni.getStorageSync('aid')
     }
   },
   
   onLoad() {
     // 初始请求
-    this.fetchRecord()
+    this.fetchRecord(this.aid)
+    
     // #ifdef MP-WEIXIN
     let menuButtonInfo = uni.getMenuButtonBoundingClientRect()
     this.topHeight = menuButtonInfo.top + menuButtonInfo.height + 10
@@ -47,18 +49,19 @@ export default {
     if (!this.contro) {
       return false
     }
-    this.fetchRecord(++this.pageIndex)
+    let aid = uni.getStorageSync('aid')
+    this.fetchRecord(this.aid, ++this.pageIndex)
   },
   
   methods: {
     // 初始请求
-    async fetchRecord(pageIndex = 1) {
+    async fetchRecord(aid = 1, pageIndex = 1) {
       this.contro = false
       let res = await myRequest({
         url: '/wx/record',
         method: 'POST',
         data: {
-          aid: 1,
+          aid,
           pageIndex
         }
       })
