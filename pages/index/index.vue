@@ -11,10 +11,13 @@
     </view> -->
     <view class="list">
       <view class="item" v-for="(val, key) in list" :key="key">
-        <view class="day">
-        {{formatDate(key)}}
-          <span>hello</span>
-        
+        <view class="day-info">
+          <view class="day-line">{{formatDate(key)}}</view>
+          <view class="count">
+            <span class="mr-10">支出22.00</span>
+            <span class="mr-10">收入11.00</span>
+            <span>结余11.00</span>
+          </view>
         </view>
         <view class="apiece" v-for="item in val" :key="item.id">
           <view class="price">{{item.remark + '--' + item.money}}</view>
@@ -115,21 +118,21 @@ export default {
     formatDate(str) {
       let strTime = str.replace(/-/g, '/')
       let date = new Date(strTime)
-      let myyear = date.getFullYear()
-      let mymonth = date.getMonth() + 1
-      let myweekday = date.getDate()
+      let year = date.getFullYear()
+      let month = date.getMonth() + 1
+      let day = date.getDate()
    
-      if (mymonth < 10) {
-          mymonth = "0" + mymonth;
+      if (month < 10) {
+          month = "0" + month;
       }
-      if (myweekday < 10) {
-          myweekday = "0" + myweekday;
+      if (day < 10) {
+          day = "0" + day;
       }
-      let info = myweekday + '日/' + mymonth + '月'
+      let info = day + '日/' + month + '月'
       let now = new Date()
   
-      if (myyear != now.getFullYear()) {
-        info = info + '/' + myyear + '年'
+      if (year != now.getFullYear()) {
+        info = info + '/' + year + '年'
       }
       return info
     }
@@ -157,20 +160,34 @@ export default {
     }
   }
   .list {
+    padding: 0 20rpx;
     .item {
       margin: 50rpx 0;
-      .day {
+      .day-info {
         height: 60rpx;
         line-height: 60rpx;
         background-color: #ffffcc;
         font-size: 30rpx;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .day-line {
+          color: #666666;
+        }
+        .count {
+          font-size: 24rpx;
+          color: #bfbfbf;
+          .mr-10 {
+            margin-right: 10rpx;
+          }
+        }
       }
       .apiece {
         .price {
           height: 80rpx;
           line-height: 80rpx;
           font-size: 40rpx;
-          margin: 20rpx 0;
+          
         }
       }
     }
