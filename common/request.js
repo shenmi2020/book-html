@@ -48,6 +48,7 @@ function getLoginToken() {
           url: '/user/login',
           method: 'POST',
           data: {
+            aid: uni.getStorageSync('aid'),
             code: loginRes.code
           }
         })
