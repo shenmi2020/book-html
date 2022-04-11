@@ -9,7 +9,8 @@
       <view>400</view>
       <view>收入 0 | 结余 -400</view>
     </view> -->
-    <view class="list">
+    <scroll-view class="list" scroll-y="true" :style="{ height: listHeight + 'px' }" 
+      lower-threshold="50" @scrolltolower="lowerRecord">
       <view class="item" v-for="(val, key) in list" :key="key">
         <view class="day-info">
           <view class="day-line">{{formatDate(key)}}</view>
@@ -23,7 +24,7 @@
           <view class="price">{{item.remark + '--' + item.money}}</view>
         </view>
       </view>
-    </view>
+    </scroll-view>
   </view>
 </template>
 
@@ -34,6 +35,7 @@ export default {
   data() {
     return {
       topHeight: 56,
+      listHeight: 600,
       title: "Hello",
       list: {},
       contro: false,
@@ -44,28 +46,34 @@ export default {
   },
   
   onLoad() {
-    let str = '2022-09-08';
-    str = str.replace(/-/g, '/')
-    // str = Date.parse(str)
-    let data = new Date(str)
-    console.log('str:', data.getDate())
     // 初始请求
     this.fetchAccount()
-    
     // #ifdef MP-WEIXIN
     let menuButtonInfo = uni.getMenuButtonBoundingClientRect()
     this.topHeight = menuButtonInfo.top + menuButtonInfo.height + 10
+    let that = this
+    uni.getSystemInfo({
+    	success: function (res) {
+        that.listHeight = res.screenHeight - that.topHeight
+    	}
+    })
     // #endif
+    
   },
   
-  onReachBottom() {
-    if (!this.contro) {
-      return false
-    }
-    this.fetchRecord(++this.pageIndex)
-  },
+  // onReachBottom() {
+    
+  // },
   
   methods: {
+    lowerRecord() {
+      console.log('lower')
+      if (!this.contro) {
+        return false
+      }
+      this.fetchRecord(++this.pageIndex)
+      
+    },
     // 查询账本
     async fetchAccount() {
       let res = await myRequest({
@@ -111,7 +119,7 @@ export default {
         }
         this.list[item.day].push(item)
       })
-      if (res.data.length == 10) {
+      if (res.data.length == 20) {
         this.contro = true
       }
     },
@@ -161,6 +169,7 @@ export default {
   }
   .list {
     padding: 0 20rpx;
+    
     .item {
       margin: 50rpx 0;
       .day-info {
