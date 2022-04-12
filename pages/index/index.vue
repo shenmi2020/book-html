@@ -9,7 +9,8 @@
       <view>400</view>
       <view>收入 0 | 结余 -400</view>
     </view> -->
-    <view class="list">
+    <scroll-view class="list" scroll-y="true" :style="{ height: listHeight + 'px' }" 
+      lower-threshold="50" @scrolltolower="lowerRecord">
       <view class="item" v-for="(val, key) in list" :key="key">
         <view class="day-info">
           <view class="day-line">{{formatDate(key)}}</view>
@@ -24,7 +25,7 @@
           <view class="price">{{item.money}}</view>
         </view>
       </view>
-    </view>
+    </scroll-view>
   </view>
 </template>
 
@@ -35,6 +36,7 @@ export default {
   data() {
     return {
       topHeight: 56,
+      listHeight: 600,
       title: "Hello",
       list: {},
       contro: false,
@@ -45,20 +47,22 @@ export default {
   },
   
   onLoad() {
-    let str = '2022-09-08';
-    str = str.replace(/-/g, '/')
-    // str = Date.parse(str)
-    let data = new Date(str)
-    console.log('str:', data.getDate())
     // 初始请求
     this.fetchAccount()
-    
     // #ifdef MP-WEIXIN
     let menuButtonInfo = uni.getMenuButtonBoundingClientRect()
     this.topHeight = menuButtonInfo.top + menuButtonInfo.height + 10
+    let that = this
+    uni.getSystemInfo({
+    	success: function (res) {
+        that.listHeight = res.screenHeight - that.topHeight
+    	}
+    })
     // #endif
+    
   },
   
+<<<<<<< HEAD
   onReachBottom() {
     console.log('bottom:', this.contro)
     if (!this.contro) {
@@ -66,8 +70,21 @@ export default {
     }
     this.fetchRecord(++this.pageIndex)
   },
+=======
+  // onReachBottom() {
+    
+  // },
+>>>>>>> 06e1657d01ddf41435c579bf1ca435c4a21e66a8
   
   methods: {
+    lowerRecord() {
+      console.log('lower')
+      if (!this.contro) {
+        return false
+      }
+      this.fetchRecord(++this.pageIndex)
+      
+    },
     // 查询账本
     async fetchAccount() {
       let res = await myRequest({
@@ -113,7 +130,6 @@ export default {
         }
         this.list[item.day].push(item)
       })
-      console.log('len:', res.data.length)
       if (res.data.length == 20) {
         this.contro = true
       }
@@ -163,6 +179,10 @@ export default {
     }
   }
   .list {
+<<<<<<< HEAD
+=======
+    padding: 0 20rpx;
+>>>>>>> 06e1657d01ddf41435c579bf1ca435c4a21e66a8
     
     .item {
       
