@@ -20,7 +20,8 @@
           </view>
         </view>
         <view class="apiece" v-for="item in val" :key="item.id">
-          <view class="price">{{item.remark + '--' + item.money}}</view>
+          <view class="mark">{{item.remark}}</view>
+          <view class="price">{{item.money}}</view>
         </view>
       </view>
     </view>
@@ -59,6 +60,7 @@ export default {
   },
   
   onReachBottom() {
+    console.log('bottom:', this.contro)
     if (!this.contro) {
       return false
     }
@@ -111,7 +113,8 @@ export default {
         }
         this.list[item.day].push(item)
       })
-      if (res.data.length == 10) {
+      console.log('len:', res.data.length)
+      if (res.data.length == 20) {
         this.contro = true
       }
     },
@@ -160,33 +163,41 @@ export default {
     }
   }
   .list {
-    padding: 0 20rpx;
+    
     .item {
-      margin: 50rpx 0;
+      
       .day-info {
-        height: 60rpx;
-        line-height: 60rpx;
-        background-color: #ffffcc;
+        height: 80rpx;
+        line-height: 80rpx;
+        background-color: #d9d9d9;
         font-size: 30rpx;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 0 20rpx;
         .day-line {
           color: #666666;
         }
         .count {
           font-size: 24rpx;
-          color: #bfbfbf;
+          color: #999999;
           .mr-10 {
             margin-right: 10rpx;
           }
         }
       }
       .apiece {
+        padding: 0 20rpx;
+        display: flex;
+        justify-content: space-between;
+        font-size: 30rpx;
+        height: 120rpx;
+        line-height: 120rpx;
+        border-bottom: 1rpx solid #e6e6e6;
+        .mark {
+          color: #333333;
+        }
         .price {
-          height: 80rpx;
-          line-height: 80rpx;
-          font-size: 40rpx;
           
         }
       }

@@ -1,5 +1,5 @@
-const BASE_URL = 'http://localhost:8787'
-
+const BASE_URL = 'https://www.iunii.top'
+// const BASE_URL = 'http://localhost:8787'
 export  const myRequest = (options) => {
   return new Promise((resolve, reject) => {
     uni.request({
