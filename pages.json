@@ -6,6 +6,21 @@
         "navigationBarTitleText": "默认",
         "navigationStyle": "custom"
       }
+    },
+    {
+      "path": "pages/log/log",
+      "style": {
+        "navigationBarTitleText": "默认",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path" : "pages/save/index",
+      "style" :                                                                                    
+      {
+          "navigationBarTitleText": "记一笔",
+          "enablePullDownRefresh": false
+      }
     }
   ],
   "globalStyle": {
@@ -17,5 +32,25 @@
   },
   "window": {
     "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "组件"
+      },
+      {
+        "pagePath": "pages/save/index",
+        "text": "记一笔"
+      },
+      {
+        "pagePath": "pages/log/log",
+        "text": "接口"
+      }
+    ]
   }
 }

@@ -55,26 +55,18 @@ export default {
     let that = this
     uni.getSystemInfo({
     	success: function (res) {
-        that.listHeight = res.screenHeight - that.topHeight
+        console.log('sys', res)
+        that.listHeight = res.windowHeight - that.topHeight
     	}
     })
     // #endif
     
   },
   
-<<<<<<< HEAD
-  onReachBottom() {
-    console.log('bottom:', this.contro)
-    if (!this.contro) {
-      return false
-    }
-    this.fetchRecord(++this.pageIndex)
-  },
-=======
+
   // onReachBottom() {
     
   // },
->>>>>>> 06e1657d01ddf41435c579bf1ca435c4a21e66a8
   
   methods: {
     lowerRecord() {
@@ -179,13 +171,7 @@ export default {
     }
   }
   .list {
-<<<<<<< HEAD
-=======
-    padding: 0 20rpx;
->>>>>>> 06e1657d01ddf41435c579bf1ca435c4a21e66a8
-    
     .item {
-      
       .day-info {
         height: 80rpx;
         line-height: 80rpx;
