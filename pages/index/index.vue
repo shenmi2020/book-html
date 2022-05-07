@@ -15,13 +15,13 @@
         <view class="day-info">
           <view class="day-line">{{formatDate(key)}}</view>
           <view class="count">
-            <span class="mr-10">支出22.00</span>
-            <span class="mr-10">收入11.00</span>
-            <span>结余11.00</span>
+            <span class="mr-10">支出 {{val.exp}}</span>
+            <span class="mr-10">收入 {{val.inc}}</span>
+            <span>结余 {{val.inc - val.exp}}</span>
           </view>
         </view>
-        <view class="apiece" v-for="item in val" :key="item.id">
-          <view class="mark">{{item.remark}}</view>
+        <view class="apiece" v-for="item in val.info" :key="item.id">
+          <view class="mark">{{item.remark}} ---- {{item.type == 1 ? '支出' : '收入'}}</view>
           <view class="price">{{item.money}}</view>
         </view>
       </view>
@@ -77,6 +77,7 @@ export default {
       this.fetchRecord(++this.pageIndex)
       
     },
+    
     // 查询账本
     async fetchAccount() {
       let res = await myRequest({
@@ -104,6 +105,7 @@ export default {
       }
       this.fetchRecord()
     },
+    
     // 查询账单
     async fetchRecord(pageIndex = 1) {
       this.contro = false
@@ -118,9 +120,16 @@ export default {
       
       res.data.map(item => {
         if (!this.list.hasOwnProperty(item.day)) {
-          this.list[item.day] = []
+          this.list[item.day] = {}
+          if (item.inc) {
+            this.list[item.day].inc = item.inc
+          }
+          if (item.exp) {
+            this.list[item.day].exp = item.exp
+          }
+          this.list[item.day].info = []
         }
-        this.list[item.day].push(item)
+        this.list[item.day].info.push(item)
       })
       if (res.data.length == 20) {
         this.contro = true
